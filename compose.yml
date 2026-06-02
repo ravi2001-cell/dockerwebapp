@@ -6,7 +6,7 @@ services:
     ports:
       - "3306:3306"
     deploy:
-      replicas: 2
+      replicas: 6
     networks:
       - mynetwork
 
@@ -15,7 +15,7 @@ services:
     ports:
       - "1111:8080"
     deploy:
-      replicas: 3
+      replicas: 6
     depends_on:
       - devopsdb
     networks:
