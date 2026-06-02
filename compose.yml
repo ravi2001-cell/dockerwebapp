@@ -15,7 +15,7 @@ services:
     ports:
       - "1111:8080"
     deploy:
-      replicas: 2
+      replicas: 3
     depends_on:
       - devopsdb
     networks:
