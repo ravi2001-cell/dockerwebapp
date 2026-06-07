@@ -5,6 +5,11 @@ services:
     image: rkdocker1800/auto:db
     ports:
       - "3306:3306"
+      environment:
+      - MYSQL_ROOT_PASSWORD=vprofiledb    # Required to match the Java app settings
+      - MYSQL_DATABASE=accounts
+      - MYSQL_USER=vprofileuser
+      - MYSQL_PASSWORD=vprofiledb
     deploy:
       replicas: 5
     networks:
