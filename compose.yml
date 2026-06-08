@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   devopsdb:
-    image: rkdocker1800/auto:db
+    image: rkdocker1800/auto1:db
     ports:
       - "3306:3306"
   #  deploy:
@@ -17,7 +17,7 @@ services:
           - db01      
 
   application:
-    image: rkdocker1800/auto:app
+    image: rkdocker1800/auto1:app
     ports:
       - "1111:8080"
     #deploy:
