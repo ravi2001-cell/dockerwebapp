@@ -9,7 +9,12 @@ services:
    #   replicas: 1
     #networks:
      # - mynetwork
-
+environment:
+      - MYSQL_ROOT_PASSWORD=devopspassword   # FIXED: Matches your Dockerfile password
+    networks:
+      default:
+        aliases:
+          - db01      
   application:
     image: rkdocker1800/auto:app
     ports:
