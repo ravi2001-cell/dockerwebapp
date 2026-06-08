@@ -14,7 +14,13 @@ services:
     networks:
       default:
         aliases:
-          - db01      
+          - db01
+  vpromq01:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+          
 
   application:
     image: rkdocker1800/auto1:app
