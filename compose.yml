@@ -12,8 +12,8 @@ services:
           - node.role == manager  
   #  deploy:
    #   replicas: 1
-    #networks:
-     # - mynetwork
+    networks:
+      - mynetwork
    # environment:
     #  - MYSQL_ROOT_PASSWORD=devopspassword
     #networks:
@@ -41,8 +41,8 @@ services:
     depends_on:
       - devopsdb
       #- vpromq01
-    #networks:
-     # - mynetwork
+    networks:
+      - mynetwork
 
 networks:
   mynetwork:
