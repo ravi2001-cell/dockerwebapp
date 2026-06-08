@@ -5,6 +5,11 @@ services:
     image: rkdocker1800/auto1:db
     ports:
       - "3306:3306"
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager  
   #  deploy:
    #   replicas: 1
     #networks:
@@ -20,12 +25,17 @@ services:
     #ports:
      # - "5672:5672"
       #- "15672:15672"
+      
           
 
   application:
     image: rkdocker1800/auto1:app
     ports:
       - "1111:8080"
+    deploy:
+      replicas: 5             # FIXED: Scales the application layer to 5 active replicas
+    networks:
+      - mynetwork  
     #deploy:
      # replicas: 1
     depends_on:
@@ -34,6 +44,6 @@ services:
     #networks:
      # - mynetwork
 
-#networks:
- # mynetwork:
-  #  driver: overlay
+networks:
+  mynetwork:
+    driver: overlay
