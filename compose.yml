@@ -5,22 +5,22 @@ services:
     image: rkdocker1800/auto:db
     ports:
       - "3306:3306"
-    deploy:
-      replicas: 1
-    networks:
-      - mynetwork
+  #  deploy:
+   #   replicas: 1
+    #networks:
+     # - mynetwork
 
   application:
     image: rkdocker1800/auto:app
     ports:
       - "1111:8080"
-    deploy:
-      replicas: 1
+    #deploy:
+     # replicas: 1
     depends_on:
       - devopsdb
-    networks:
-      - mynetwork
+    #networks:
+     # - mynetwork
 
-networks:
-  mynetwork:
-    driver: overlay
+#networks:
+ # mynetwork:
+  #  driver: overlay
