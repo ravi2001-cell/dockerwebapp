@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('code') {
             steps {
-               git ''
+               git 'https://github.com/ravi2001-cell/dockerwebapp.git'
             }
         }
         stage('code scan') {
