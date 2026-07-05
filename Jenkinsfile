@@ -54,7 +54,7 @@ pipeline {
         stage('docker push') {
             steps {
                 script { 
-                     withDockerRegistry(credentialsId: 'dockerpassword') {
+                    withDockerRegistry(credentialsId: 'docker'){
                          sh 'docker push rkdocker1800/auto:app'
                          sh 'docker push rkdocker1800/auto:db'
                      }
