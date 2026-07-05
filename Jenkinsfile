@@ -1,13 +1,18 @@
 pipeline {
-    agent any 
+    agent any
+    
+    options {
+        disableConcurrentBuilds()
+    }
     
     tools {
         maven 'mymaven'
     }
+    
     stages {
         stage('code') {
             steps {
-               git 'https://github.com/ravi2001-cell/dockerwebapp.git'
+               git ''
             }
         }
         stage('code scan') {
@@ -21,15 +26,19 @@ pipeline {
             steps {
                sh 'rm -rf Docker-app/target'
                sh 'mvn clean package -DskipTests'
-               sh 'cp -r target Docker-app'
+               sh 'mkdir -p Docker-app/target'
+               sh 'cp target/*.war Docker-app/target/'
             }
         }
         stage('artifact') {
             steps {
-               // Fixed: Removed 'http://' and the trailing slash from nexusUrl
-               nexusArtifactUploader artifacts: [[artifactId: 'vprofile1.101', classifier: '', file: 'target/vprofile1.101-v1.10.war', type: 'war']], credentialsId: 'nexus', groupId: 'com.visualpathit', nexusUrl: '35.175.228.36:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'myrepo', version: 'v1.10'
+                script {
+                    def pom = readMavenPom file: 'pom.xml'
+                    def pomGroupId = pom.groupId ?: pom.parent.groupId
+                    nexusArtifactUploader(artifacts: [[artifactId: pom.artifactId, classifier: '', file: "target/${pom.artifactId}-${pom.version}.war", type: 'war']], credentialsId: 'nexus', groupId: pomGroupId, nexusUrl: '35.175.228.36:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'myrepo', version: pom.version)
+                }
             }
-        } // FIXED: Added these missing closing brackets for the artifact stage
+        } 
         stage('code build using docker') {
             steps {
                sh 'docker build -t rkdocker1800/auto:app Docker-app'
