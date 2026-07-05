@@ -27,6 +27,7 @@ pipeline {
         stage('artifact') {
             steps {
                nexusArtifactUploader artifacts: [[artifactId: 'vprofile1.101', classifier: '', file: 'target/vprofile1.101-v1.10.war', type: 'war']], credentialsId: 'nexus', groupId: 'com.visualpathit', nexusUrl: 'http://35.175.228.36:8081/', nexusVersion: 'nexus3', protocol: 'http', repository: 'myrepo', version: 'v1.10'
+            }
         stage('code build using docker') {
             steps {
                sh 'docker build -t rkdocker1800/auto:app Docker-app'
