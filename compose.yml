@@ -2,45 +2,67 @@ version: "3.9"
 
 services:
   devopsdb:
-    image: rkdocker1800/auto1:db
+    image: rkdocker1800/auto:db
     ports:
       - "3306:3306"
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == manager  
-  #  deploy:
-   #   replicas: 1
     networks:
       - mynetwork
-   # environment:
-    #  - MYSQL_ROOT_PASSWORD=devopspassword
-    #networks:
-     # default:
-      #  aliases:
-       #   - db01
-  #vpromq01:
-   # image: rabbitmq:3-management
-    #ports:
-     # - "5672:5672"
-      #- "15672:15672"
-           
 
   application:
-    image: rkdocker1800/auto1:app
+    image: rkdocker1800/auto:app
     ports:
       - "1111:8080"
-    deploy:
-      replicas: 5             # FIXED: Scales the application layer to 5 active replicas
     networks:
       - mynetwork  
-    #deploy:
-     # replicas: 1
     depends_on:
       - devopsdb
-      #- vpromq01
 
 networks:
   mynetwork:
     driver: bridge
+# version: "3.9"
+
+# services:
+#   devopsdb:
+#     image: rkdocker1800/auto1:db
+#     ports:
+#       - "3306:3306"
+#     deploy:
+#       replicas: 1
+#       placement:
+#         constraints:
+#           - node.role == manager  
+#   #  deploy:
+#    #   replicas: 1
+#     networks:
+#       - mynetwork
+#    # environment:
+#     #  - MYSQL_ROOT_PASSWORD=devopspassword
+#     #networks:
+#      # default:
+#       #  aliases:
+#        #   - db01
+#   #vpromq01:
+#    # image: rabbitmq:3-management
+#     #ports:
+#      # - "5672:5672"
+#       #- "15672:15672"
+           
+
+#   application:
+#     image: rkdocker1800/auto1:app
+#     ports:
+#       - "1111:8080"
+#     deploy:
+#       replicas: 5             # FIXED: Scales the application layer to 5 active replicas
+#     networks:
+#       - mynetwork  
+#     #deploy:
+#      # replicas: 1
+#     depends_on:
+#       - devopsdb
+#       #- vpromq01
+
+# networks:
+#   mynetwork:
+#     driver: bridge
