@@ -19,9 +19,9 @@ pipeline {
         }
         stage('code build') {
             steps {
-               sh 'rm -rf Docker-app/target'
+            // sh 'rm -rf Docker-app/target'
                sh 'mvn clean package -DskipTests'
-               sh 'cp -r target Docker-app'
+              // sh 'cp -r target Docker-app'
             }
         }
         stage('artifact') {
